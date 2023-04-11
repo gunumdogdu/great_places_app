@@ -1,45 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import './providers/great_places.dart';
-import './view/places_list_view.dart';
-import './view/add_place_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:great_places_app/screens/places.dart';
+
+final colorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 102, 6, 247),
+  background: const Color.fromARGB(255, 56, 49, 66),
+);
+
+final theme = ThemeData().copyWith(
+  useMaterial3: true,
+  scaffoldBackgroundColor: colorScheme.background,
+  colorScheme: colorScheme,
+  textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
+    titleSmall: GoogleFonts.ubuntuCondensed(
+      fontWeight: FontWeight.bold,
+    ),
+    titleMedium: GoogleFonts.ubuntuCondensed(
+      fontWeight: FontWeight.bold,
+    ),
+    titleLarge: GoogleFonts.ubuntuCondensed(
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+);
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    const ProviderScope(child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: GreatPlaces(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData.from(
-          colorScheme: ColorScheme.light().copyWith(
-            primary: Colors.indigo,
-            secondary: Colors.amber.shade500,
-          ),
-          textTheme: TextTheme(
-            displaySmall: TextStyle(color: Colors.black),
-            displayMedium: TextStyle(color: Colors.black),
-            displayLarge: TextStyle(color: Colors.black),
-            bodyLarge: TextStyle(color: Colors.black),
-            bodySmall: TextStyle(color: Colors.black),
-            titleSmall: TextStyle(color: Colors.black), // BUTTON COLOR
-            titleMedium: TextStyle(color: Colors.black),
-            titleLarge: TextStyle(color: Colors.black),
-            bodyMedium: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ),
-        home: PlacesListView(),
-        routes: {
-          AddPlaceView.routeName: (ctx) => AddPlaceView(),
-        },
-      ),
+    return MaterialApp(
+      title: 'Great Places',
+      theme: theme,
+      home: const PlacesScreen(),
     );
   }
 }

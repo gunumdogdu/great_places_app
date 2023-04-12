@@ -43,6 +43,7 @@ dependencies:
   uuid: ^3.0.7
   flutter_riverpod: ^2.3.4
   location: ^4.4.0
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
